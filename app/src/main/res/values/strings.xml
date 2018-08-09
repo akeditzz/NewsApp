@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="label_news_app">News App</string>
+    <string name="the_best">The Best</string>
+    <string name="sample_title"><![CDATA[Tirzah: Devotion review – quiet love stories from DIY R&B enigma]]></string>
+    <string name="sample_section">Sport</string>
+    <string name="sample_date">Jul 10, 2018</string>
+    <string name="label_news_title">News Title</string>
+    <string name="label_section">Section</string>
+    <string name="label_date">Date</string>
+    <string name="api_date_format">yyyy-MM-dd\'T\'HH:mm:ss\'Z\'</string>
+    <string name="req_date_format">MMM dd, yyyy</string>
+    <string name="api_parameter_result">results</string>
+    <string name="api_parameter_sectionName">sectionName</string>
+    <string name="api_parameter_webPublicationDate">webPublicationDate</string>
+    <string name="api_parameter_webTitle">webTitle</string>
+    <string name="api_parameter_webUrl">webUrl</string>
+    <string name="error_url">Error with creating URL</string>
+    <string name="requestMethod_GET">GET</string>
+    <string name="charset_UTF_8">UTF-8</string>
+    <string name="api_parameter_response">response</string>
+    <string name="oops_no_internet_connection">Oops! No Internet Connection</string>
+    <string name="label_no_data">No Data Found, Please try again later</string>
+</resources>

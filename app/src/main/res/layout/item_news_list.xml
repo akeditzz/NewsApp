@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/dimen_8dp">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="@font/roboto_medium"
+        android:maxLines="2"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/textSize_16sp"
+        tools:text="@string/sample_title" />
+
+    <TextView
+        android:id="@+id/tv_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_title"
+        android:layout_toLeftOf="@+id/tv_date"
+        android:layout_toStartOf="@+id/tv_date"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="@string/sample_section" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tv_title"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="@string/sample_date" />
+
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_below="@+id/tv_section"
+        android:layout_marginTop="@dimen/dimen_4dp"
+        android:layout_height="0.5dp"/>
+
+</RelativeLayout>

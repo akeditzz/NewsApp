@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<NewsModel>>, INews {
 
     //Declaration
-    private static final String NEWSURL = "https://content.guardianapis.com/search?api-key=8fcbbe7e-6d33-442b-8029-4603caa7cd33";
+    private static final String NEWSURL = "https://content.guardianapis.com/search?origin=india&api-key=8fcbbe7e-6d33-442b-8029-4603caa7cd33";
     private LinearLayout ll_progress;
     private RecyclerView rv_news_list;
     private TextView tv_noInternet;
@@ -105,5 +107,21 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private void setNewsAdapter(ArrayList<NewsModel> list) {
         NewsAdapter newsAdapter = new NewsAdapter(this, list, this);
         rv_news_list.setAdapter(newsAdapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

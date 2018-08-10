@@ -1,0 +1,11 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings">
+
+    <EditTextPreference
+        android:defaultValue="@string/label_india"
+        android:key="@string/label_enter_country"
+        android:inputType="textCapSentences"
+        android:selectAllOnFocus="true"
+        android:title="@string/label_enter_country" />
+
+</PreferenceScreen>

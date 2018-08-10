@@ -1,31 +1,39 @@
 package com.akeditzz.newsapp.Main.model;
 
+import java.util.ArrayList;
+
 public class NewsModel {
-    private String sectionName;
-    private String webPublicationDate;
-    private String webTitle;
-    private String webUrl;
+    private String mSectionName;
+    private String mWebPublicationDate;
+    private String mWebTitle;
+    private String mWebUrl;
+    private ArrayList<ContributorModel> mContributorList;
 
-    public NewsModel(String sectionName, String webPublicationDate, String webTitle, String webUrl) {
-        this.sectionName = sectionName;
-        this.webPublicationDate = webPublicationDate;
-        this.webTitle = webTitle;
-        this.webUrl = webUrl;
+    public NewsModel(String sectionName, String webPublicationDate, String webTitle, String webUrl, ArrayList<ContributorModel> contributorList) {
+        this.mSectionName = sectionName;
+        this.mWebPublicationDate = webPublicationDate;
+        this.mWebTitle = webTitle;
+        this.mWebUrl = webUrl;
+        this.mContributorList = contributorList;
     }
 
-    public String getSectionName() {
-        return sectionName;
+    public String getmSectionName() {
+        return mSectionName;
     }
 
-    public String getWebPublicationDate() {
-        return webPublicationDate;
+    public String getmWebPublicationDate() {
+        return mWebPublicationDate;
     }
 
-    public String getWebTitle() {
-        return webTitle;
+    public String getmWebTitle() {
+        return mWebTitle;
     }
 
-    public String getWebUrl() {
-        return webUrl;
+    public String getmWebUrl() {
+        return mWebUrl;
+    }
+
+    public ArrayList<ContributorModel> getmContributorList() {
+        return mContributorList;
     }
 }

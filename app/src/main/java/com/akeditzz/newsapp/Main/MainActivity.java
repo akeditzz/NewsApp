@@ -27,10 +27,10 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<NewsModel>>, INews {
 
     //Declaration
-    private static final String NEWSURL = "https://content.guardianapis.com/search?api-key=8fcbbe7e-6d33-442b-8029-4603caa7cd33";
-    private LinearLayout ll_progress;
-    private RecyclerView rv_news_list;
-    private TextView tv_noInternet;
+    private static final String NEWSURL = "https://content.guardianapis.com/search?show-tags=contributor&section=sport&show-references=all&api-key=8fcbbe7e-6d33-442b-8029-4603caa7cd33";
+    private LinearLayout llProgress;
+    private RecyclerView rvNewsList;
+    private TextView tvNoInternet;
     private ProgressBar progressBar;
 
     @Override
@@ -44,11 +44,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      * views initilization
      */
     private void initView() {
-        ll_progress = findViewById(R.id.ll_progress);
-        rv_news_list = findViewById(R.id.rv_news_list);
-        tv_noInternet = findViewById(R.id.tv_no_internet);
+        llProgress = findViewById(R.id.ll_progress);
+        rvNewsList = findViewById(R.id.rv_news_list);
+        tvNoInternet = findViewById(R.id.tv_no_internet);
         progressBar = findViewById(R.id.pb_progress_bar);
-        rv_news_list.setLayoutManager(new LinearLayoutManager(this));
+        rvNewsList.setLayoutManager(new LinearLayoutManager(this));
         checkNetwork();
     }
 
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             getLoaderManager().initLoader(0, null, this);
         } else {
             progressBar.setVisibility(View.GONE);
-            tv_noInternet.setVisibility(View.VISIBLE);
+            tvNoInternet.setVisibility(View.VISIBLE);
         }
     }
 
@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoadFinished(Loader<ArrayList<NewsModel>> loader, ArrayList<NewsModel> data) {
         if (data != null && !data.isEmpty()) {
             setNewsAdapter(data);
-            ll_progress.setVisibility(View.GONE);
+            llProgress.setVisibility(View.GONE);
         } else {
             progressBar.setVisibility(View.GONE);
-            tv_noInternet.setVisibility(View.VISIBLE);
-            tv_noInternet.setText(R.string.label_no_data);
+            tvNoInternet.setVisibility(View.VISIBLE);
+            tvNoInternet.setText(R.string.label_no_data);
         }
     }
 
@@ -104,6 +104,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
      */
     private void setNewsAdapter(ArrayList<NewsModel> list) {
         NewsAdapter newsAdapter = new NewsAdapter(this, list, this);
-        rv_news_list.setAdapter(newsAdapter);
+        rvNewsList.setAdapter(newsAdapter);
     }
 }

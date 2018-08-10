@@ -17,12 +17,25 @@
         tools:text="@string/sample_title" />
 
     <TextView
-        android:id="@+id/tv_section"
+        android:id="@+id/tv_authors"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/tv_title"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/textSize_12sp"
+        tools:text="@string/sample_author" />
+
+    <TextView
+        android:id="@+id/tv_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_authors"
         android:layout_toLeftOf="@+id/tv_date"
         android:layout_toStartOf="@+id/tv_date"
         android:ellipsize="end"
@@ -35,16 +48,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tv_title"
+        android:layout_alignTop="@+id/tv_section"
         android:ellipsize="end"
         android:maxLines="1"
         tools:text="@string/sample_date" />
 
     <View
         android:layout_width="match_parent"
-        android:background="@color/colorPrimary"
+        android:layout_height="0.5dp"
         android:layout_below="@+id/tv_section"
         android:layout_marginTop="@dimen/dimen_4dp"
-        android:layout_height="0.5dp"/>
+        android:background="@color/colorPrimary" />
 
 </RelativeLayout>

@@ -38,22 +38,44 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (!TextUtils.isEmpty(list.get(position).getWebTitle())) {
-            holder.tv_title.setText(list.get(position).getWebTitle());
+        if (!TextUtils.isEmpty(list.get(position).getmWebTitle())) {
+            holder.tvTitle.setText(list.get(position).getmWebTitle());
         } else {
-            holder.tv_title.setText(R.string.label_news_title);
+            holder.tvTitle.setText(R.string.label_news_title);
         }
 
-        if (!TextUtils.isEmpty(list.get(position).getSectionName())) {
-            holder.tv_section.setText(list.get(position).getSectionName());
+        if (!TextUtils.isEmpty(list.get(position).getmSectionName())) {
+            holder.tvSection.setText(list.get(position).getmSectionName());
         } else {
-            holder.tv_section.setText(R.string.label_section);
+            holder.tvSection.setText(R.string.label_section);
         }
 
-        if (!TextUtils.isEmpty(list.get(position).getWebPublicationDate())) {
-            holder.tv_date.setText(getFormatedDate(list.get(position).getWebPublicationDate()));
+        if (!TextUtils.isEmpty(list.get(position).getmWebPublicationDate())) {
+            holder.tvDate.setText(getFormatedDate(list.get(position).getmWebPublicationDate()));
         } else {
-            holder.tv_date.setText(R.string.label_date);
+            holder.tvDate.setText(R.string.label_date);
+        }
+
+        if (list.get(position).getmContributorList() != null && !list.get(position).getmContributorList().isEmpty()) {
+            holder.tvAuthor.setVisibility(View.VISIBLE);
+            StringBuilder authors = new StringBuilder();
+            authors.append(context.getString(R.string.label_hyphen));
+            for (int i = 0; i < list.get(position).getmContributorList().size(); i++) {
+                if (i == 0) {
+                    authors.append(list.get(position).getmContributorList().get(i).getmWebTitle());
+                } else {
+                    authors.append(context.getString(R.string.label_comma));
+                    authors.append(list.get(position).getmContributorList().get(i).getmWebTitle());
+                }
+            }
+
+            if (!TextUtils.isEmpty(authors)) {
+                holder.tvAuthor.setText(authors);
+            } else {
+                holder.tvAuthor.setVisibility(View.GONE);
+            }
+        } else {
+            holder.tvAuthor.setVisibility(View.GONE);
         }
 
     }
@@ -83,19 +105,21 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
         //declaration
-        TextView tv_title;
-        TextView tv_section;
-        TextView tv_date;
+        TextView tvTitle;
+        TextView tvSection;
+        TextView tvDate;
+        TextView tvAuthor;
 
         ViewHolder(View itemView) {
             super(itemView);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_section = itemView.findViewById(R.id.tv_section);
-            tv_date = itemView.findViewById(R.id.tv_date);
+            tvTitle = itemView.findViewById(R.id.tv_title);
+            tvSection = itemView.findViewById(R.id.tv_section);
+            tvDate = itemView.findViewById(R.id.tv_date);
+            tvAuthor = itemView.findViewById(R.id.tv_authors);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mCallback.openUrl(list.get(getAdapterPosition()).getWebUrl());
+                    mCallback.openUrl(list.get(getAdapterPosition()).getmWebUrl());
                 }
             });
         }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.akeditzz.newsapp.Main.model.ContributorModel;
 import com.akeditzz.newsapp.Main.model.NewsModel;
 import com.akeditzz.newsapp.R;
 
@@ -70,12 +71,24 @@ public class DataLoader extends AsyncTaskLoader<ArrayList<NewsModel>> {
         if (!TextUtils.isEmpty(jsonResponse)) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonResponse);
-                JSONArray jsonArray = jsonObject.getJSONObject(getContext().getString(R.string.api_parameter_response)).getJSONArray(getContext().getString(R.string.api_parameter_result));
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    newsList.add(new NewsModel(jsonArray.getJSONObject(i).getString(getContext().getString(R.string.api_parameter_sectionName))
-                            , jsonArray.getJSONObject(i).getString(getContext().getString(R.string.api_parameter_webPublicationDate))
-                            , jsonArray.getJSONObject(i).getString(getContext().getString(R.string.api_parameter_webTitle))
-                            , jsonArray.getJSONObject(i).getString(getContext().getString(R.string.api_parameter_webUrl))));
+                JSONArray jsonArray = jsonObject.optJSONObject(getContext().getString(R.string.api_parameter_response)).optJSONArray(getContext().getString(R.string.api_parameter_result));
+                if (jsonArray.length() > 0) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        ArrayList<ContributorModel> contributorModelList = new ArrayList<>();
+                        JSONArray contributorArray = jsonArray.optJSONObject(i).optJSONArray(getContext().getString(R.string.api_parameter_tags));
+                        if (contributorArray.length() > 0) {
+                            for (int j = 0; j < contributorArray.length(); j++) {
+                                contributorModelList.add(new ContributorModel(contributorArray.optJSONObject(j)
+                                        .optString(getContext().getString(R.string.api_parameter_webTitle))));
+                            }
+                        }
+
+                        newsList.add(new NewsModel(jsonArray.optJSONObject(i).optString(getContext().getString(R.string.api_parameter_sectionName))
+                                , jsonArray.optJSONObject(i).optString(getContext().getString(R.string.api_parameter_webPublicationDate))
+                                , jsonArray.optJSONObject(i).optString(getContext().getString(R.string.api_parameter_webTitle))
+                                , jsonArray.optJSONObject(i).optString(getContext().getString(R.string.api_parameter_webUrl))
+                                , contributorModelList));
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -111,7 +124,7 @@ public class DataLoader extends AsyncTaskLoader<ArrayList<NewsModel>> {
             urlConnection.setReadTimeout(10000 /* milliseconds */);
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.connect();
-            if (urlConnection.getResponseCode() == 200) {
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             }

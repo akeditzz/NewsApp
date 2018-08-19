@@ -4,13 +4,18 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -27,7 +32,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<NewsModel>>, INews {
 
     //Declaration
-    private static final String NEWSURL = "https://content.guardianapis.com/search?show-tags=contributor&section=sport&show-references=all&api-key=8fcbbe7e-6d33-442b-8029-4603caa7cd33";
+    private static final String BASEURL = "https://content.guardianapis.com/search?show-tags=contributor";
+    private static final String KEY = "8fcbbe7e-6d33-442b-8029-4603caa7cd33";
     private LinearLayout llProgress;
     private RecyclerView rvNewsList;
     private TextView tvNoInternet;
@@ -37,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initView();
     }
 
     /**
@@ -72,7 +77,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public Loader<ArrayList<NewsModel>> onCreateLoader(int id, Bundle args) {
-        return new DataLoader(this, NEWSURL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String section = sharedPrefs.getString(getString(R.string.key_section), getString(R.string.label_sports));
+        String orderBy = sharedPrefs.getString(getString(R.string.settings_order_by_key), getString(R.string.settings_order_by_default));
+        Uri baseUri = Uri.parse(BASEURL);
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        if (!TextUtils.isEmpty(section.trim()))
+            uriBuilder.appendQueryParameter(getString(R.string.pamarater_section), section.toLowerCase());
+        if (!TextUtils.isEmpty(orderBy.trim()))
+            uriBuilder.appendQueryParameter(getString(R.string.parameter_order_by), orderBy.toLowerCase());
+        uriBuilder.appendQueryParameter(getString(R.string.parameter_show_reference), getString(R.string.label_all));
+        uriBuilder.appendQueryParameter(getString(R.string.label_api_key), KEY);
+        return new DataLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -89,7 +105,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoaderReset(Loader<ArrayList<NewsModel>> loader) {
-
     }
 
     @Override
@@ -106,4 +121,30 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         NewsAdapter newsAdapter = new NewsAdapter(this, list, this);
         rvNewsList.setAdapter(newsAdapter);
     }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+    }
+
 }

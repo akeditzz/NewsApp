@@ -25,4 +25,22 @@
     <string name="sample_author">- Akshay managooli</string>
     <string name="label_hyphen">-&#160;</string>
     <string name="label_comma">,</string>
+    <string name="settings">Settings</string>
+    <string name="settings_title">NewsApp Settings</string>
+    <string name="select_country">Select Country</string>
+    <string name="label_enter_section" translatable="false">Enter Section</string>
+    <string name="label_sports" translatable="false">sport</string>
+    <string name="key_section" translatable="false">key_section</string>
+    <string name="pamarater_section">section</string>
+    <string name="parameter_show_reference">show-references</string>
+    <string name="label_all">all</string>
+    <string name="label_api_key">api-key</string>
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_newest_value</string>
+    <string name="settings_order_by_newest_label">Newest</string>
+    <string name="settings_order_by_newest_value" translatable="false">newest</string>
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+    <string name="parameter_order_by">order-by</string>
 </resources>
